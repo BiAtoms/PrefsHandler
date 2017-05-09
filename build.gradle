@@ -18,9 +18,6 @@ allprojects {
     }
 }
 
-plugins {
-    id "com.jfrog.bintray" version "1.7.3"
-}
 
 task clean(type: Delete) {
     delete rootProject.buildDir

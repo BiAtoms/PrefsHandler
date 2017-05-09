@@ -2,8 +2,12 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#69f0ae</color>
 
     <color name="submit_button">#2e7d32</color>
     <color name="submit_button_txt">#fdfdfd</color>
+
+    <color name="find_button">#2E406A</color>
+    <color name="find_button_txt">#fdfdfd</color>
+
 </resources>

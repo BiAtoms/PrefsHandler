@@ -5,19 +5,28 @@ package com.sampleApp;
  */
 
 public enum SharedPrefKeys {
-    TRAIN(0),
-    CAR(1),
-    PLANE(3),
-    BICYCLE(4);
+    TRAIN(0, "Train"),
+    CAR(1, "Car"),
+    PLANE(3, "Plane"),
+    BICYCLE(4, "Bicycle");
 
     private int intValue;
+    private String stringValue;
 
-    private SharedPrefKeys(int value) {
+    private SharedPrefKeys(int value, String name) {
         this.intValue = value;
+        this.stringValue = name;
     }
 
     public int toInt() {
         return intValue;
     }
+
+    @Override
+    public String toString() {
+        return stringValue;
+    }
+
+
 }
 

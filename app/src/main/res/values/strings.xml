@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">SampleApp</string>
+
+    <string name="enter_key">Enter key</string>
+    <string name="key">Key</string>
+
+
+    <string name="value">Value</string>
+
+    <string name="submit">Submit</string>
+    <string name="find">Find</string>
+
+
 </resources>

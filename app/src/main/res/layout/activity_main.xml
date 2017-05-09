@@ -6,35 +6,60 @@
     android:orientation="vertical"
     android:padding="@dimen/linear_lyt_padding">
 
-    <EditText
+    <Spinner
+        android:id="@+id/spnr_keys_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Enter data" />
+
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown" />
 
     <EditText
+        android:id="@+id/edt_value_submit_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Enter data" />
+        android:hint="@string/value" />
 
     <Button
+        android:id="@+id/btn_submit_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@color/submit_button"
-        android:text="Submit"
+        android:text="@string/submit"
         android:textAllCaps="false"
         android:textColor="@color/submit_button_txt"
         android:textSize="@dimen/default_text_size" />
 
+
+    <Spinner
+        android:id="@+id/spnr_find_keys_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown" />
+
+    <Button
+        android:id="@+id/btn_find_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/find_button"
+        android:text="@string/find"
+        android:textAllCaps="false"
+        android:textColor="@color/find_button_txt"
+        android:textSize="@dimen/default_text_size" />
+
     <TextView
+        android:id="@+id/txt_found_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Hello World!"
         android:textSize="@dimen/default_text_size" />
 
 </LinearLayout>

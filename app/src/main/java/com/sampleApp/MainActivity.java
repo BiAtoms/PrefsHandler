@@ -1,6 +1,6 @@
 package com.sampleApp;
 
-
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.sharedpreferencesmanager.SharedPreferencesManager;
 
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+/*
         SharedPrefKeys[] arrayOfKeys = SharedPrefKeys.values();
         String[] items = new String[SharedPrefKeys.values().length];
 
@@ -59,21 +60,25 @@ public class MainActivity extends AppCompatActivity {
         spnrKeys.setSelection(0);
         spnrFindKeys.setSelection(0);
         sharedPreferencesManager = new SharedPreferencesManager(this);
+*/
+        //TODO: Fix this part! To make a new release, you should comment all potential errors!
     }
 
     @OnClick(R.id.btn_submit_main)
     public void submit(View view) {
+      /*
         String result = value.getText().toString();
         if (!result.equals("")) {
             sharedPreferencesManager.setValue(spnrKeys.getSelectedItemPosition(), value.getText().toString());
             return;
         }
         Toast.makeText(this, "Cannot be blank", Toast.LENGTH_LONG).show();
+        */
     }
 
     @OnClick(R.id.btn_find_main)
     public void find(View view) {
-
+/*
         String result = sharedPreferencesManager.getValue(String.class);
 
         // the result will be null if the wanted value is not found.
@@ -82,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         Toast.makeText(this, "No result found!", Toast.LENGTH_LONG).show();
+  */
     }
+
 
 }

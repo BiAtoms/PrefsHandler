@@ -16,18 +16,48 @@ public class SharedPreferencesManager {
     private static String TAG = "SharedPrefsManager";
 
     private Context context;
-    private String sharedPrefsTag = "MySharedPreferences";
-    private int sharedPrefsMode = Context.MODE_PRIVATE;
+    private final String defaultSharedPrefsTag = "MySharedPreferences";
+    private final int defaultSharedPrefsMode = Context.MODE_PRIVATE;
+
+    private String sharedPrefsTag;
+    private int sharedPrefsMode;
+
     private SharedPreferences sharedPrefs;
     private SharedPreferences.Editor editor;
 
     private boolean logIsEnabled = false;
     private boolean toastIsEnabled = false;
-    private boolean snackbarIsEnabled = false;
 
 
     public SharedPreferencesManager(Context context) {
         this.context = context;
+        this.sharedPrefsMode = defaultSharedPrefsMode;
+        this.sharedPrefsTag = defaultSharedPrefsTag;
+
+        sharedPrefs = context.getSharedPreferences(defaultSharedPrefsTag, defaultSharedPrefsMode);
+    }
+
+    public SharedPreferencesManager(Context context, String sharedPrefsTag) {
+        this.context = context;
+        this.sharedPrefsTag = sharedPrefsTag;
+        this.sharedPrefsMode = defaultSharedPrefsMode;
+
+        sharedPrefs = context.getSharedPreferences(sharedPrefsTag, defaultSharedPrefsMode);
+    }
+
+    public SharedPreferencesManager(Context context, int sharedPrefsMode) {
+        this.context = context;
+        this.sharedPrefsMode = sharedPrefsMode;
+        this.sharedPrefsTag = defaultSharedPrefsTag;
+
+        sharedPrefs = context.getSharedPreferences(defaultSharedPrefsTag, sharedPrefsMode);
+    }
+
+    public SharedPreferencesManager(Context context, String sharedPrefsTag, int sharedPrefsMode) {
+        this.context = context;
+        this.sharedPrefsMode = sharedPrefsMode;
+        this.sharedPrefsTag = sharedPrefsTag;
+
         sharedPrefs = context.getSharedPreferences(sharedPrefsTag, sharedPrefsMode);
     }
 
@@ -57,6 +87,7 @@ public class SharedPreferencesManager {
         Gson gson = new Gson();
         try {
             String json = sharedPrefs.getString(key, "");
+            if (json.equals("")) return null;
             return gson.fromJson(json, data);
         } catch (Throwable t) {
             getFeedBack(t);
@@ -64,9 +95,9 @@ public class SharedPreferencesManager {
         return null;
     }
 
+    //region Logging
     private void getFeedBack(Throwable t) {
         writeToLog(t);
-        writeToSnackBar(t);
         writeToToast(t);
     }
 
@@ -75,11 +106,6 @@ public class SharedPreferencesManager {
             Log.e(TAG, t.getMessage());
     }
 
-    private void writeToSnackBar(Throwable t) {
-        if (snackbarIsEnabled) {
-            //TODO: Implement SnackBar
-        }
-    }
 
     private void writeToToast(Throwable t) {
         if (toastIsEnabled)
@@ -100,12 +126,6 @@ public class SharedPreferencesManager {
         this.toastIsEnabled = enable;
     }
 
-    /**
-     * Default is false
-     */
-    public void setSnackbarIsEnabled(boolean enable) {
-        this.snackbarIsEnabled = enable;
-    }
 
     /**
      * Default is false
@@ -121,12 +141,27 @@ public class SharedPreferencesManager {
         return this.toastIsEnabled;
     }
 
-    /**
-     * Default is false
-     */
-    public boolean SnackbarIsEnabled() {
-        return this.snackbarIsEnabled;
+//#endregion
+
+    public void clearAll() {
+        editor = sharedPrefs.edit();
+        editor.clear().apply();
     }
 
+    public void clearData(String key) {
+        editor = sharedPrefs.edit();
+        editor.remove(key).apply();
+    }
 
+    public void clearData(int key) {
+        clearData(String.valueOf(key));
+    }
+
+    public String getSharedPrefsTag() {
+        return this.sharedPrefsTag;
+    }
+
+    public int getSharedPrefsMode() {
+        return this.sharedPrefsMode;
+    }
 }

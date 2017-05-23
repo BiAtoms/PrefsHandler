@@ -1,5 +1,4 @@
 # SharedPreferencesManager
-===============
 
 Makes easy to work with Shared Preferences
 
@@ -34,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
+
 To store keys in an appropriate way, Enum can be used:
 ````Java
 public enum SharedPrefKeys {
@@ -61,6 +61,23 @@ public enum SharedPrefKeys {
     
 }
 ````
+
+## Usage
+
+To store different objects in shared preferences, use same syntax:
+
+- `sharedPreferencesManager
+	.setValue(SharedPrefKeys.MYOBJECT.toString(), myObject)`
+	.setValue(SharedPrefKeys.MYOTHEROBJECT.toString(), myOtherObject)`
+ 
+Retrieving data can be as simple as:
+
+- `DataType data = sharedPreferencesManager.getValue(SharedPrefKeys.MYOBJECT.toString(), DataType.class);`
+- `OtherDataType data = sharedPreferencesManager.getValue(SharedPrefKeys.MYOTHEROBJECT.toString(), OtherDataType.class);`
+
+If data does not exist, getValue method will return `null` value.
+
+For detailed usage, check the sampleApp above.
 
 # How to Setup
 Step 1. Add it in your root build.gradle at the end of repositories:

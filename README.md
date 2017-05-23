@@ -73,7 +73,8 @@ To store different objects in shared preferences, use same syntax:
 Retrieving data can be as simple as:
 
 - `DataType data = sharedPreferencesManager.getValue(SharedPrefKeys.MYOBJECT.toString(), DataType.class);`
-- `OtherDataType data = sharedPreferencesManager.getValue(SharedPrefKeys.MYOTHEROBJECT.toString(), OtherDataType.class);`
+- `OtherDataType data = 
+	sharedPreferencesManager.getValue(SharedPrefKeys.MYOTHEROBJECT.toString(), OtherDataType.class);`
 
 If data does not exist, getValue method will return `null` value.
 

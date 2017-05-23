@@ -2,10 +2,11 @@
 
 Makes easy to work with Shared Preferences
 
+<div>
+  <img src="screenshots/sampleApp.gif" height="400px"/>
+</div>
 
-A small library containing a wrapper/helper for the shared preferences of Android.
-
-With this library you can initialize the shared preference inside the onCreate of the Application class of your app.
+A useful library containing a helper methods for the shared preferences in Android.
 
 ```Java
 public class MainActivity extends AppCompatActivity {

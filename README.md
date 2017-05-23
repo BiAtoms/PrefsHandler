@@ -3,7 +3,7 @@
 Makes easy to work with Shared Preferences
 
 <div>
-  <img src="screenshots/sampleApp.gif" height="450px" style="border: 1px solid black"/>
+  <img src="screenshots/sampleApp.gif" height="450px" style="border-style: solid; border-width: 1px;"/>
 </div>
 
 A useful library containing a helper methods for the shared preferences in Android.

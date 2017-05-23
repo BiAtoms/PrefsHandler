@@ -81,6 +81,24 @@ OtherDataType data =
 ````
 If data does not exist, getValue method will return `null` value.
 
+You can also add list of objects to Shared Preferences with the same way:
+
+````Java
+// Creating Array list
+ArrayList<String> myList = new ArrayList<>();
+
+// Adding values
+myList.add("First Strig");
+myList.add("Second String");
+myList.add("Third String");
+
+// Saving list to the Shared Preferences
+sharedPreferencesManager.setValue("SuperData", myList);
+
+// Getting list from Shared Preferences
+ArrayList<String> asda =  sharedPreferencesManager.getValue("SuperData", ArrayList.class);
+````
+
 For detailed usage, check the sampleApp above.
 
 # How to Setup

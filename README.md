@@ -66,14 +66,14 @@ public enum SharedPrefKeys {
 
 To store different objects in shared preferences, use same syntax:
 
-- `sharedPreferencesManager
-	.setValue(SharedPrefKeys.MYOBJECT.toString(), myObject)`
+`sharedPreferencesManager
+	.setValue(SharedPrefKeys.MYOBJECT.toString(), myObject)
 	.setValue(SharedPrefKeys.MYOTHEROBJECT.toString(), myOtherObject)`
  
 Retrieving data can be as simple as:
 
-- `DataType data = sharedPreferencesManager.getValue(SharedPrefKeys.MYOBJECT.toString(), DataType.class);`
-- `OtherDataType data = 
+ `DataType data = sharedPreferencesManager.getValue(SharedPrefKeys.MYOBJECT.toString(), DataType.class);`
+ `OtherDataType data = 
 	sharedPreferencesManager.getValue(SharedPrefKeys.MYOTHEROBJECT.toString(), OtherDataType.class);`
 
 If data does not exist, getValue method will return `null` value.

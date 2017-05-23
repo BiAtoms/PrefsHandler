@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         String result = value.getText().toString();
         if (!result.equals("")) {
             sharedPreferencesManager.setValue(spnrKeys.getSelectedItem().toString(), value.getText().toString());
+            Toast.makeText(this, "Saved Successfully", Toast.LENGTH_LONG).show();
+
             return;
         }
         Toast.makeText(this, "Cannot be blank", Toast.LENGTH_LONG).show();
@@ -102,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_delete_main)
     public void delete(View view) {
         sharedPreferencesManager.clearData(spnrDeleteKeys.getSelectedItem().toString());
+        Toast.makeText(this, "Cleared Successfully", Toast.LENGTH_LONG).show();
+
     }
 
 

@@ -62,6 +62,7 @@ public class SharedPreferencesManager {
     }
 
     public <T> SharedPreferencesManager setValue(String key, T myData) {
+        //TODO: Check if the key exists and handle it!
         editor = sharedPrefs.edit();
 
         try {
@@ -85,6 +86,7 @@ public class SharedPreferencesManager {
     }
 
     public <T> T getValue(String key, Class<T> data) {
+        //TODO: Add default String for not-exist case!
         Gson gson = new Gson();
         try {
             String json = sharedPrefs.getString(key, "");
@@ -171,4 +173,6 @@ public class SharedPreferencesManager {
     public int getSharedPrefsMode() {
         return this.sharedPrefsMode;
     }
+
+
 }

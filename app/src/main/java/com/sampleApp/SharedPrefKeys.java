@@ -27,6 +27,5 @@ public enum SharedPrefKeys {
         return stringValue;
     }
 
-
 }
 

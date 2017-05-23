@@ -3,6 +3,7 @@ package com.sampleApp;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -70,12 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferencesManager = new SharedPreferencesManager(this);
 
-        ArrayList<String> smtg = new ArrayList<>();
-        smtg.add("askdalsd");
-        smtg.add("asddaqqqqqq");
-
-        sharedPreferencesManager.setValue("SuperData",  );
-
     }
 
     @OnClick(R.id.btn_submit_main)
@@ -83,14 +78,10 @@ public class MainActivity extends AppCompatActivity {
 
         String result = value.getText().toString();
         if (!result.equals("")) {
-            int as = spnrKeys.getSelectedItemPosition();
-            String dfs = value.getText().toString();
-
             sharedPreferencesManager.setValue(spnrKeys.getSelectedItem().toString(), value.getText().toString());
             return;
         }
         Toast.makeText(this, "Cannot be blank", Toast.LENGTH_LONG).show();
-
     }
 
     @OnClick(R.id.btn_find_main)
@@ -112,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
     public void delete(View view) {
         sharedPreferencesManager.clearData(spnrDeleteKeys.getSelectedItem().toString());
     }
-
 
 
 }

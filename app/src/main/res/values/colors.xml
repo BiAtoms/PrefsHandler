@@ -10,4 +10,8 @@
     <color name="find_button">#2E406A</color>
     <color name="find_button_txt">#fdfdfd</color>
 
+    <color name="delete_button">#d50000</color>
+    <color name="delete_button_txt">#fdfdfd</color>
+
+
 </resources>

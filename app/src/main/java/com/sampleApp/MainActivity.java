@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.sharedpreferencesmanager.SharedPreferencesManager;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.spnr_find_keys_main)
     Spinner spnrFindKeys;
 
+    @BindView(R.id.spnr_delete_keys_main)
+    Spinner spnrDeleteKeys;
+
     @BindView(R.id.txt_found_main)
     TextView txtFoundedValue;
 
@@ -47,48 +52,67 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-/*
+
         SharedPrefKeys[] arrayOfKeys = SharedPrefKeys.values();
         String[] items = new String[SharedPrefKeys.values().length];
 
         for (int i = 0; i < arrayOfKeys.length; i++) {
             items[i] = arrayOfKeys[i].toString();
         }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spnrKeys.setAdapter(adapter);
         spnrFindKeys.setAdapter(adapter);
+        spnrDeleteKeys.setAdapter(adapter);
         spnrKeys.setSelection(0);
         spnrFindKeys.setSelection(0);
+        spnrDeleteKeys.setSelection(0);
+
         sharedPreferencesManager = new SharedPreferencesManager(this);
-*/
-        //TODO: Fix this part! To make a new release, you should comment all potential errors!
+
+        ArrayList<String> smtg = new ArrayList<>();
+        smtg.add("askdalsd");
+        smtg.add("asddaqqqqqq");
+
+        sharedPreferencesManager.setValue("SuperData",  );
+
     }
 
     @OnClick(R.id.btn_submit_main)
     public void submit(View view) {
-      /*
+
         String result = value.getText().toString();
         if (!result.equals("")) {
-            sharedPreferencesManager.setValue(spnrKeys.getSelectedItemPosition(), value.getText().toString());
+            int as = spnrKeys.getSelectedItemPosition();
+            String dfs = value.getText().toString();
+
+            sharedPreferencesManager.setValue(spnrKeys.getSelectedItem().toString(), value.getText().toString());
             return;
         }
         Toast.makeText(this, "Cannot be blank", Toast.LENGTH_LONG).show();
-        */
+
     }
 
     @OnClick(R.id.btn_find_main)
     public void find(View view) {
-/*
-        String result = sharedPreferencesManager.getValue(String.class);
+
+        String result = sharedPreferencesManager.getValue(spnrFindKeys.getSelectedItem().toString(), String.class);
 
         // the result will be null if the wanted value is not found.
         if (result != null) {
             txtFoundedValue.setText(result);
             return;
         }
+
+        txtFoundedValue.setText("");
         Toast.makeText(this, "No result found!", Toast.LENGTH_LONG).show();
-  */
     }
+
+    @OnClick(R.id.btn_delete_main)
+    public void delete(View view) {
+        sharedPreferencesManager.clearData(spnrDeleteKeys.getSelectedItem().toString());
+    }
+
 
 
 }

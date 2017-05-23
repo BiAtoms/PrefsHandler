@@ -69,6 +69,7 @@ public class SharedPreferencesManager {
             String json = gson.toJson(myData);
             editor.putString(String.valueOf(key), json);
             editor.apply();
+
         } catch (Throwable t) {
             getFeedBack(t);
         }
@@ -115,14 +116,14 @@ public class SharedPreferencesManager {
     /**
      * Default is false
      */
-    public void setLogIsEnabled(boolean enable) {
+    public void setLogEnabled(boolean enable) {
         this.logIsEnabled = enable;
     }
 
     /**
      * Default is false
      */
-    public void setToastIsEnabled(boolean enable) {
+    public void setToastEnabled(boolean enable) {
         this.toastIsEnabled = enable;
     }
 
@@ -130,14 +131,14 @@ public class SharedPreferencesManager {
     /**
      * Default is false
      */
-    public boolean LogIsEnabled() {
+    public boolean LogEnabled() {
         return this.logIsEnabled;
     }
 
     /**
      * Default is false
      */
-    public boolean ToastIsEnabled() {
+    public boolean ToastEnabled() {
         return this.toastIsEnabled;
     }
 
@@ -148,9 +149,15 @@ public class SharedPreferencesManager {
         editor.clear().apply();
     }
 
-    public void clearData(String key) {
+    public SharedPreferencesManager clearData(String key) {
         editor = sharedPrefs.edit();
-        editor.remove(key).apply();
+        try{
+            editor.remove(key).apply();
+        }catch (Throwable t)
+        {
+            getFeedBack(t);
+        }
+        return this;
     }
 
     public void clearData(int key) {

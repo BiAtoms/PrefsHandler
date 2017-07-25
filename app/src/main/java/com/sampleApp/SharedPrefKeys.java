@@ -1,25 +1,24 @@
 package com.sampleApp;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by aslan on 5/10/2017.
  */
 
 public enum SharedPrefKeys {
-    TRAIN(0, "Train"),
-    CAR(1, "Car"),
-    PLANE(3, "Plane"),
-    BICYCLE(4, "Bicycle");
+    TRAIN("Train"),
+    CAR("Car"),
+    LIST("List"),
+    PLANE("Plane"),
+    BICYCLE("Bicycle");
 
-    private int intValue;
     private String stringValue;
 
-    private SharedPrefKeys(int value, String name) {
-        this.intValue = value;
+    private SharedPrefKeys( String name) {
         this.stringValue = name;
-    }
-
-    public int toInt() {
-        return intValue;
     }
 
     @Override
@@ -27,5 +26,14 @@ public enum SharedPrefKeys {
         return stringValue;
     }
 
+    public static ArrayList<String> getKeysAsStringArrayList() {
+        ArrayList<String> keys = new ArrayList<>();
+
+        for (SharedPrefKeys key : values()) {
+               keys.add(key.toString());
+        }
+
+        return keys;
+    }
 }
 

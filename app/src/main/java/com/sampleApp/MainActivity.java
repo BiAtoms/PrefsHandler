@@ -24,7 +24,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SharedPreferencesManager sharedPreferencesManager;
+    SharedPreferencesManager sharedPreferencesManager;
 
     @BindView(R.id.spnr_keys_main)
     Spinner spnrKeys;
@@ -61,16 +61,23 @@ public class MainActivity extends AppCompatActivity {
             items[i] = arrayOfKeys[i].toString();
         }
 
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spnrKeys.setAdapter(adapter);
         spnrFindKeys.setAdapter(adapter);
         spnrDeleteKeys.setAdapter(adapter);
+
         spnrKeys.setSelection(0);
         spnrFindKeys.setSelection(0);
         spnrDeleteKeys.setSelection(0);
 
-        sharedPreferencesManager = new SharedPreferencesManager(this);
+        ArrayList<String> arrayList = SharedPrefKeys.getKeysAsStringArrayList();
 
+
+        sharedPreferencesManager = new SharedPreferencesManager(this);
+        sharedPreferencesManager.setValue(SharedPrefKeys.LIST.toString(), arrayList);
+
+        ArrayList<String> result_of = sharedPreferencesManager.getValue(SharedPrefKeys.LIST.toString(), ArrayList.class);
     }
 
     @OnClick(R.id.btn_submit_main)
@@ -91,22 +98,19 @@ public class MainActivity extends AppCompatActivity {
 
         String result = sharedPreferencesManager.getValue(spnrFindKeys.getSelectedItem().toString(), String.class);
 
-        // the result will be null if the wanted value is not found.
-        if (result != null) {
-            txtFoundedValue.setText(result);
+         //the result will be null if the wanted value is not found.
+         if (result != null) {
+              txtFoundedValue.setText(result);
             return;
-        }
+         }
 
-        txtFoundedValue.setText("");
-        Toast.makeText(this, "No result found!", Toast.LENGTH_LONG).show();
+           txtFoundedValue.setText("");
+            Toast.makeText(this, "No result found!", Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.btn_delete_main)
     public void delete(View view) {
         sharedPreferencesManager.clearData(spnrDeleteKeys.getSelectedItem().toString());
         Toast.makeText(this, "Cleared Successfully", Toast.LENGTH_LONG).show();
-
     }
-
-
 }

@@ -1,5 +1,6 @@
 package com.sampleApp;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.sharedpreferencesmanager.SharedPreferencesManager;
+import com.sharedpreferencesmanager.SharedPrefsManager;
 
 import java.util.ArrayList;
 
@@ -23,8 +23,6 @@ import butterknife.OnClick;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    SharedPreferencesManager sharedPreferencesManager;
 
     @BindView(R.id.spnr_keys_main)
     Spinner spnrKeys;
@@ -54,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+
+        //Initialize SharedPrefsManager once
+        new SharedPrefsManager.Builder(this)
+                .setSharedPrefsMode(Context.MODE_PRIVATE) // Optional (default: Context.MODE_PRIVATE)
+                .setSharedPrefsTag("MySharedPreferences") // Optional (default: "MySharedPreferences")
+                .build();
+
+
+        SharedPrefsManager.setValue(SharedPrefKeys.TRAIN.toString(), "My new data up here");
+
+
         SharedPrefKeys[] arrayOfKeys = SharedPrefKeys.values();
         String[] items = new String[SharedPrefKeys.values().length];
 
@@ -73,11 +82,12 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<String> arrayList = SharedPrefKeys.getKeysAsStringArrayList();
 
+        // Save String Array list data with SharedPrefsManager!
+        SharedPrefsManager.setArrayValue(SharedPrefKeys.LIST.toString(), arrayList);
 
-        sharedPreferencesManager = new SharedPreferencesManager(this);
-        sharedPreferencesManager.setValue(SharedPrefKeys.LIST.toString(), arrayList);
+        ArrayList<String> result_of = SharedPrefsManager.getArrayValue(SharedPrefKeys.LIST.toString());
 
-        ArrayList<String> result_of = sharedPreferencesManager.getValue(SharedPrefKeys.LIST.toString(), ArrayList.class);
+        Log.e("sdas", result_of.get(2));
     }
 
     @OnClick(R.id.btn_submit_main)
@@ -85,9 +95,8 @@ public class MainActivity extends AppCompatActivity {
 
         String result = value.getText().toString();
         if (!result.equals("")) {
-            sharedPreferencesManager.setValue(spnrKeys.getSelectedItem().toString(), value.getText().toString());
+            SharedPrefsManager.setValue(spnrKeys.getSelectedItem().toString(), value.getText().toString());
             Toast.makeText(this, "Saved Successfully", Toast.LENGTH_LONG).show();
-
             return;
         }
         Toast.makeText(this, "Cannot be blank", Toast.LENGTH_LONG).show();
@@ -96,21 +105,21 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_find_main)
     public void find(View view) {
 
-        String result = sharedPreferencesManager.getValue(spnrFindKeys.getSelectedItem().toString(), String.class);
+        String result = SharedPrefsManager.getValue(spnrFindKeys.getSelectedItem().toString(), String.class);
 
-         //the result will be null if the wanted value is not found.
-         if (result != null) {
-              txtFoundedValue.setText(result);
+        //The result will be null if the wanted value is not found.
+        if (result != null) {
+            txtFoundedValue.setText(result);
             return;
-         }
+        }
 
-           txtFoundedValue.setText("");
-            Toast.makeText(this, "No result found!", Toast.LENGTH_LONG).show();
+        txtFoundedValue.setText("");
+        Toast.makeText(this, "No result found!", Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.btn_delete_main)
     public void delete(View view) {
-        sharedPreferencesManager.clearData(spnrDeleteKeys.getSelectedItem().toString());
+        SharedPrefsManager.clearData(spnrDeleteKeys.getSelectedItem().toString());
         Toast.makeText(this, "Cleared Successfully", Toast.LENGTH_LONG).show();
     }
 }

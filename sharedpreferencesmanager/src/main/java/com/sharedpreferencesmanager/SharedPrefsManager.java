@@ -20,8 +20,6 @@ public class SharedPrefsManager {
     private final static String TAG = "SharedPrefsManager";
 
     private Context context;
-    private final String defaultSharedPrefsTag = "MySharedPreferences";
-    private final int defaultSharedPrefsMode = Context.MODE_PRIVATE;
 
     private String sharedPrefsTag;
     private int sharedPrefsMode;
@@ -57,6 +55,7 @@ public class SharedPrefsManager {
         this.sharedPrefsTag = builder.sharedPrefsTag;
 
         sharedPrefs = context.getSharedPreferences(sharedPrefsTag, sharedPrefsMode);
+        prefsManager = this;
     }
 
     //endregion
@@ -143,7 +142,7 @@ public class SharedPrefsManager {
         return null;
     }
 
-    public static SharedPrefsManager setValue(String key, ArrayList<String> arrayList) {
+    public static SharedPrefsManager setArrayValue(String key, ArrayList<String> arrayList) {
         prefsManager.editor = prefsManager.sharedPrefs.edit();
 
         Set<String> set = new HashSet<>();
@@ -152,6 +151,15 @@ public class SharedPrefsManager {
         prefsManager.editor.apply();
 
         return prefsManager;
+    }
+
+    public static ArrayList<String> getArrayValue(String key) {
+
+        Set<String> someStringSet = prefsManager.sharedPrefs.getStringSet(key, new HashSet<String>());
+        ArrayList<String> arrayList1 = new ArrayList<>();
+        arrayList1.addAll(someStringSet);
+        return arrayList1;
+
     }
 
     public static void clearAll() {

@@ -8,7 +8,7 @@ import java.util.List;
  * Created by aslan on 5/10/2017.
  */
 
-public enum SharedPrefKeys {
+enum SharedPrefKeys {
     TRAIN("Train"),
     CAR("Car"),
     LIST("List"),
@@ -17,7 +17,7 @@ public enum SharedPrefKeys {
 
     private String stringValue;
 
-    private SharedPrefKeys( String name) {
+    private SharedPrefKeys(String name) {
         this.stringValue = name;
     }
 
@@ -30,7 +30,7 @@ public enum SharedPrefKeys {
         ArrayList<String> keys = new ArrayList<>();
 
         for (SharedPrefKeys key : values()) {
-               keys.add(key.toString());
+            keys.add(key.toString());
         }
 
         return keys;

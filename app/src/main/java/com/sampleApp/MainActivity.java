@@ -1,7 +1,6 @@
 package com.sampleApp;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sharedpreferencesmanager.SharedPrefsManager;
+import com.prefshandler.PrefsHandler;
 
 import java.util.ArrayList;
 
@@ -53,23 +52,24 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        //Initialize SharedPrefsManager once
-        new SharedPrefsManager.Builder(this)
+        //Initialize PrefsHandler once
+        new PrefsHandler.Builder(this)
                 .setSharedPrefsMode(Context.MODE_PRIVATE) // Optional (default: Context.MODE_PRIVATE)
                 .setSharedPrefsTag("MySharedPreferences") // Optional (default: "MySharedPreferences")
                 .build();
 
 
-        SharedPrefsManager.setValue(SharedPrefKeys.TRAIN.toString(), "My new data up here");
+        PrefsHandler.setValue(SharedPrefKeys.TRAIN.toString(), "My new data up here");
 
 
         SharedPrefKeys[] arrayOfKeys = SharedPrefKeys.values();
-        String[] items = new String[SharedPrefKeys.values().length];
+        String[] items = new String[SharedPrefKeys.values().length-1];
 
-        for (int i = 0; i < arrayOfKeys.length; i++) {
-            items[i] = arrayOfKeys[i].toString();
+        for (int i = 0, j = 0; i < arrayOfKeys.length; i++) {
+            if(arrayOfKeys[i].toString().equals("List")) continue;
+            items[j] = arrayOfKeys[i].toString();
+            j++;
         }
-
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spnrKeys.setAdapter(adapter);
@@ -82,30 +82,26 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<String> arrayList = SharedPrefKeys.getKeysAsStringArrayList();
 
-        // Save String Array list data with SharedPrefsManager!
-        SharedPrefsManager.setArrayValue(SharedPrefKeys.LIST.toString(), arrayList);
+        // Save String Array list data with PrefsHandler!
+        PrefsHandler.setArrayValue(SharedPrefKeys.LIST.toString(), arrayList);
 
-        ArrayList<String> result_of = SharedPrefsManager.getArrayValue(SharedPrefKeys.LIST.toString());
+        ArrayList<String> result_of = PrefsHandler.getArrayValue(SharedPrefKeys.LIST.toString());
 
         Log.e("sdas", result_of.get(2));
     }
 
     @OnClick(R.id.btn_submit_main)
     public void submit(View view) {
-
         String result = value.getText().toString();
-        if (!result.equals("")) {
-            SharedPrefsManager.setValue(spnrKeys.getSelectedItem().toString(), value.getText().toString());
-            Toast.makeText(this, "Saved Successfully", Toast.LENGTH_LONG).show();
-            return;
-        }
-        Toast.makeText(this, "Cannot be blank", Toast.LENGTH_LONG).show();
+
+        PrefsHandler.setValue(spnrKeys.getSelectedItem().toString(), value.getText().toString());
+        Toast.makeText(this, "Saved Successfully", Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.btn_find_main)
     public void find(View view) {
 
-        String result = SharedPrefsManager.getValue(spnrFindKeys.getSelectedItem().toString(), String.class);
+        String result = PrefsHandler.getValue(spnrFindKeys.getSelectedItem().toString(), String.class);
 
         //The result will be null if the wanted value is not found.
         if (result != null) {
@@ -119,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_delete_main)
     public void delete(View view) {
-        SharedPrefsManager.clearData(spnrDeleteKeys.getSelectedItem().toString());
+        PrefsHandler.clearData(spnrDeleteKeys.getSelectedItem().toString());
         Toast.makeText(this, "Cleared Successfully", Toast.LENGTH_LONG).show();
     }
 }

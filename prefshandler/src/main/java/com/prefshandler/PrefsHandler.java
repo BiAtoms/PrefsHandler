@@ -7,7 +7,9 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -117,20 +119,36 @@ public class PrefsHandler {
         return getValue(key, data, null);
     }
 
-    public static PrefsHandler setArrayValue(String key, ArrayList<String> arrayList) {
+    public static PrefsHandler setListValue(String key, List<String> list) {
         prefsManager.editor = prefsManager.sharedPrefs.edit();
         Set<String> set = new HashSet<>();
-        set.addAll(arrayList);
+        set.addAll(list);
         prefsManager.editor.putStringSet(key, set);
         prefsManager.editor.apply();
         return prefsManager;
     }
 
-    public static ArrayList<String> getArrayValue(String key) {
+    public static List<String> getListValue(String key) {
         Set<String> someStringSet = prefsManager.sharedPrefs.getStringSet(key, new HashSet<String>());
-        ArrayList<String> arrayList1 = new ArrayList<>();
-        arrayList1.addAll(someStringSet);
-        return arrayList1;
+        List<String> list = new ArrayList<>();
+        list.addAll(someStringSet);
+        return list;
+    }
+
+    public static PrefsHandler setArrayValue(String key, String[] array) {
+        prefsManager.editor = prefsManager.sharedPrefs.edit();
+        Set<String> set = new HashSet<>();
+        set.addAll(Arrays.asList(array));
+        prefsManager.editor.putStringSet(key, set);
+        prefsManager.editor.apply();
+        return prefsManager;
+    }
+
+    public static String[] getArrayValue(String key) {
+        Set<String> someStringSet = prefsManager.sharedPrefs.getStringSet(key, new HashSet<String>());
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.addAll(someStringSet);
+        return (String[]) arrayList.toArray();
     }
 
     public static void clearAll() {

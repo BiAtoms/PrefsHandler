@@ -20,7 +20,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
-        assertEquals("com.sharedpreferencesmanager.test", appContext.getPackageName());
+        assertEquals("com.prefshandler.test", appContext.getPackageName());
     }
 }

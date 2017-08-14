@@ -1,4 +1,4 @@
-package com.sharedpreferencesmanager;
+package com.prefshandler;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package com.sharedpreferencesmanager;
+package com.prefshandler;
 
 import org.junit.Test;
 

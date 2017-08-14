@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
         PrefsHandler.setListValue(SharedPrefKeys.LIST.toString(), arrayList);
 
         List<String> result_of = PrefsHandler.getListValue(SharedPrefKeys.LIST.toString());
-
-        Log.e("sdas", result_of.get(2));
     }
 
     @OnClick(R.id.btn_submit_main)

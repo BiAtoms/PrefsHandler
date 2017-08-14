@@ -1,9 +1,8 @@
-package com.sharedpreferencesmanager;
+package com.prefshandler;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -15,11 +14,9 @@ import java.util.Set;
  * Created by aslan on 5/9/2017.
  */
 
-public class SharedPrefsManager {
+public class PrefsHandler {
 
-    private final static String TAG = "SharedPrefsManager";
-
-    private Context context;
+    private final static String TAG = "PrefsHandler";
 
     private String sharedPrefsTag;
     private int sharedPrefsMode;
@@ -28,9 +25,8 @@ public class SharedPrefsManager {
     private SharedPreferences.Editor editor;
 
     private boolean logIsEnabled = false;
-    private boolean toastIsEnabled = false;
 
-    private static SharedPrefsManager prefsManager;
+    private static PrefsHandler prefsManager;
 
     //region Getters & Setters
     public String getSharedPrefsTag() {
@@ -41,7 +37,7 @@ public class SharedPrefsManager {
         return sharedPrefsMode;
     }
 
-    public static SharedPrefsManager getInstance() {
+    public static PrefsHandler getInstance() {
         return prefsManager;
     }
 
@@ -49,12 +45,10 @@ public class SharedPrefsManager {
 
     //region Constructors
 
-    private SharedPrefsManager(Builder builder) {
-        this.context = builder.context;
+    private PrefsHandler(Builder builder) {
         this.sharedPrefsMode = builder.sharedPrefsMode;
         this.sharedPrefsTag = builder.sharedPrefsTag;
-
-        sharedPrefs = context.getSharedPreferences(sharedPrefsTag, sharedPrefsMode);
+        sharedPrefs = builder.context.getSharedPreferences(sharedPrefsTag, sharedPrefsMode);
         prefsManager = this;
     }
 
@@ -64,7 +58,6 @@ public class SharedPrefsManager {
 
     private void getFeedback(Throwable t) {
         writeToLog(t);
-        writeToToast(t);
     }
 
     private void writeToLog(Throwable t) {
@@ -72,23 +65,11 @@ public class SharedPrefsManager {
             Log.e(TAG, t.getMessage());
     }
 
-    private void writeToToast(Throwable t) {
-        if (toastIsEnabled)
-            Toast.makeText(context, TAG + " " + t.getMessage(), Toast.LENGTH_LONG).show();
-    }
-
     /**
      * Default is false
      */
     public void setLogEnabled(boolean enable) {
         this.logIsEnabled = enable;
-    }
-
-    /**
-     * Default is false
-     */
-    public void setToastEnabled(boolean enable) {
-        this.toastIsEnabled = enable;
     }
 
 
@@ -99,18 +80,12 @@ public class SharedPrefsManager {
         return this.logIsEnabled;
     }
 
-    /**
-     * Default is false
-     */
-    public boolean ToastEnabled() {
-        return this.toastIsEnabled;
-    }
 
     //endregion
 
     //region Main Functionality Methods
 
-    public static <T> SharedPrefsManager setValue(String key, T myData) {
+    public static <T> PrefsHandler setValue(String key, T myData) {
         //TODO: Check whether the key exists and handle it!
         prefsManager.editor = prefsManager.sharedPrefs.edit();
 
@@ -125,16 +100,12 @@ public class SharedPrefsManager {
         return prefsManager;
     }
 
-    public static <T> T getValue(String key, Class<T> data) {
+    public static <T> T getValue(String key, Class<T> data, String _default) {
         //TODO: Add default String for not-exist case!
         Gson gson = new Gson();
         try {
-            String json = prefsManager.sharedPrefs.getString(key, "");
-
-            //Todo: There can be a case where user might want to save
-            //Todo: "" data in SharePrefs. Take into account that!
-            if (json.equals("")) return null;
-
+            String json = prefsManager.sharedPrefs.getString(key, _default);
+            if (json == null) return null;
             return gson.fromJson(json, data);
         } catch (Throwable t) {
             prefsManager.getFeedback(t);
@@ -142,24 +113,24 @@ public class SharedPrefsManager {
         return null;
     }
 
-    public static SharedPrefsManager setArrayValue(String key, ArrayList<String> arrayList) {
-        prefsManager.editor = prefsManager.sharedPrefs.edit();
+    public static <T> T getValue(String key, Class<T> data) {
+        return getValue(key, data, null);
+    }
 
+    public static PrefsHandler setArrayValue(String key, ArrayList<String> arrayList) {
+        prefsManager.editor = prefsManager.sharedPrefs.edit();
         Set<String> set = new HashSet<>();
         set.addAll(arrayList);
         prefsManager.editor.putStringSet(key, set);
         prefsManager.editor.apply();
-
         return prefsManager;
     }
 
     public static ArrayList<String> getArrayValue(String key) {
-
         Set<String> someStringSet = prefsManager.sharedPrefs.getStringSet(key, new HashSet<String>());
         ArrayList<String> arrayList1 = new ArrayList<>();
         arrayList1.addAll(someStringSet);
         return arrayList1;
-
     }
 
     public static void clearAll() {
@@ -167,7 +138,7 @@ public class SharedPrefsManager {
         prefsManager.editor.clear().apply();
     }
 
-    public static SharedPrefsManager clearData(String key) {
+    public static PrefsHandler clearData(String key) {
         prefsManager.editor = prefsManager.sharedPrefs.edit();
         try {
             prefsManager.editor.remove(key).apply();
@@ -197,8 +168,8 @@ public class SharedPrefsManager {
             return this;
         }
 
-        public SharedPrefsManager build() {
-            return new SharedPrefsManager(this);
+        public PrefsHandler build() {
+            return new PrefsHandler(this);
         }
     }
 }

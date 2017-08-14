@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.prefshandler.PrefsHandler;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,18 +83,16 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<String> arrayList = SharedPrefKeys.getKeysAsStringArrayList();
 
-        // Save String Array list data with PrefsHandler!
-        PrefsHandler.setArrayValue(SharedPrefKeys.LIST.toString(), arrayList);
+        // Save String ArrayList data with PrefsHandler!
+        PrefsHandler.setListValue(SharedPrefKeys.LIST.toString(), arrayList);
 
-        ArrayList<String> result_of = PrefsHandler.getArrayValue(SharedPrefKeys.LIST.toString());
+        List<String> result_of = PrefsHandler.getListValue(SharedPrefKeys.LIST.toString());
 
         Log.e("sdas", result_of.get(2));
     }
 
     @OnClick(R.id.btn_submit_main)
     public void submit(View view) {
-        String result = value.getText().toString();
-
         PrefsHandler.setValue(spnrKeys.getSelectedItem().toString(), value.getText().toString());
         Toast.makeText(this, "Saved Successfully", Toast.LENGTH_LONG).show();
     }

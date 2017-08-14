@@ -32,7 +32,6 @@ enum SharedPrefKeys {
         for (SharedPrefKeys key : values()) {
             keys.add(key.toString());
         }
-
         return keys;
     }
 }

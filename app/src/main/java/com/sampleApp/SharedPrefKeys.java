@@ -1,8 +1,8 @@
 package com.sampleApp;
 
-import java.util.AbstractList;
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by aslan on 5/10/2017.
@@ -22,6 +22,7 @@ enum SharedPrefKeys {
     }
 
     @Override
+    @NonNull
     public String toString() {
         return stringValue;
     }

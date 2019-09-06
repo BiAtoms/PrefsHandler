@@ -12,10 +12,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate();
 	
 	//To initialize and set data at the same time!
-                new PrefsHandler(this)
-                .setValue("key1", "MyStringData")
-                .setValue("key2", 12)
-                .setValue("key3", new SomeModel());
+               new PrefsHandler.Builder(this)
+                .setSharedPrefsMode(Context.MODE_PRIVATE) // Optional (default: Context.MODE_PRIVATE)
+                .setSharedPrefsTag("MySharedPreferences") // Optional (default: "MySharedPreferences")
+                .build();
 		
 	//To get data
 	String dataStr = PrefsHandler.getValue("key1", String.class);
@@ -84,6 +84,6 @@ Step 1. Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.emiraslan:SharedPreferencesManager:v1.0.1'
+	        compile 'com.github.BiAtoms:PrefsHandler:v1.2'
 	}
 	

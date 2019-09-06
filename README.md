@@ -121,3 +121,12 @@ Step 2. Add the dependency
 	        compile 'com.github.BiAtoms:PrefsHandler:v1.2'
 	}
 	
+
+
+## License
+
+MIT
+
+---
+
+> GitHub [BiAtoms](https://github.com/BiAtoms) &nbsp;&middot;&nbsp;

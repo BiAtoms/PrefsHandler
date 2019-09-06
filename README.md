@@ -7,10 +7,10 @@
 
 <p align="center">
 	<a href="#demo-app">Demo App</a> •
-    <a href="#key-fearures">Key Features</a> •
+  	<a href="#key-fearures">Key Features</a> •
   	<a href="#how-to-use">How To Use</a> •
-  	<a href="#credits">Credits</a> •
-  	<a href="#tools">Tools</a> •
+  	<a href="#usage">Usage</a> •
+  	<a href="#how-to-setup">How to Setup</a> •
   	<a href="#license">License</a>
 </p>
 
